@@ -1,0 +1,139 @@
+<!--
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+</head>
+<body>
+<h1>Admin <span th:text="${session.session_user.firstName}"></span></h1>
+<a th:href="@{/admin/insert_user}">Create new user</a>
+<a th:href="@{/admin/view_users}">View Users</a>
+<a th:href="@{/logout}">Log out</a>
+</body>
+</html>-->
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+
+
+<head>
+    <title>ADMIN PAGE</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+
+    <style>
+        * {
+            font-size: 25px;
+        }
+
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: "Raleway", Arial, Helvetica, sans-serif
+        }
+
+        a {
+            text-decoration: none !important;
+        }
+
+        a:hover {
+            background-color: turquoise !important;
+        }
+
+        .navedit {
+            position: fixed;
+            margin-top: 0;
+            z-index: 3;
+
+        }
+
+        .imageedit {
+            margin-top: 50px;
+        }
+    </style>
+</head><!---->
+
+<body class="w3-light-grey">
+
+<!-- Navigation Bar -->
+<div class="w3-bar w3-black w3-large navedit">
+    <a th:href="@{/admin/home}" class="w3-bar-item w3-button w3-red w3-mobile"><i class="fa fa-bed w3-margin-right"></i><b>Ticket
+        Bus </b>ADMIN </a>
+    <div id="panel">
+        <a th:href="@{/admin/insert_user}" class="w3-bar-item w3-button w3-mobile ">Create User</a>
+        <a th:href="@{/admin/view_users}" class="w3-bar-item w3-button w3-mobile ">View User</a>
+        <a th:href="@{/admin/search_users}" class="w3-bar-item w3-button w3-mobile ">Find User</a>
+    </div>
+    <a th:href="@{/logout}" class="w3-bar-item w3-button w3-right w3-black w3-mobile">LOGOUT</a>
+
+
+</div>
+<!-- Header -->
+<header class="w3-display-container w3-content headeredit" style="max-width:1500px;">
+    <img class="w3-image imageedit" th:src="@{/img/bus2.png}" alt="The Hotel" style="min-width:1000px" width="1500"
+         height="600"/>
+    <!--<div class="w3-display-left w3-padding w3-col l6 m8">
+        <div class="w3-container w3-red">
+            <h2><i class="fa fa-bed w3-margin-right"></i>ADMIN MANAGER:</h2>
+        </div>
+        <div class="w3-container w3-white w3-padding-16">
+            <form action="" target="_blank">
+                <div class="w3-row-padding" style="margin:0 -16px;">
+                    <div class="w3-half w3-margin-bottom">
+                        <a class="dropdown-item" href="create_admin.html">Create User</a>
+                    </div>
+                    <div class=" w3-half">
+                        <a class="dropdown-item .bg-primary" href="view_admin.html">View User</a>
+                    </div>
+                </div>
+                <div class="w3-row-padding" style="margin:8px -16px;">
+                    <div class="w3-half w3-margin-bottom">
+                        <a class="dropdown-item" href="find_admin.html">Search and Filter</a>
+                    </div>
+                    <div class="w3-half">
+                        <a class="dropdown-item" href="update_admin.html">Update user information</a>
+                    </div>
+                </div>
+                <button class="w3-button w3-dark-grey" type="submit"><i class="fa fa-search w3-margin-right"></i>
+                    Search availability
+                </button>
+            </form>
+        </div>
+    </div>-->
+</header>
+
+<!-- Footer -->
+<footer class="w3-padding-32 w3-black w3-center w3-margin-top">
+    <h5>Find Us On</h5>
+    <div class="w3-xlarge w3-padding-16">
+        <i class="fa fa-facebook-official w3-hover-opacity"></i>
+        <i class="fa fa-instagram w3-hover-opacity"></i>
+        <i class="fa fa-snapchat w3-hover-opacity"></i>
+        <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+        <i class="fa fa-twitter w3-hover-opacity"></i>
+        <i class="fa fa-linkedin w3-hover-opacity"></i>
+    </div>
+    <p>Copyright by @ 2020 <a href="https://www.w3schools.com/w3css/default.asp" target="_blank"
+                              class="w3-hover-text-green">Ticket BUS</a></p>
+</footer>
+
+
+</body>
+
+</html>

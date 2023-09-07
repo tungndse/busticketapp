@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<!-- NEWWWWWW------------------------------------------------------------>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Ticket Login</title>
+    <style>
+        body {
+            font-family: "Lato", sans-serif;
+        }
+
+
+        .main-head {
+            height: 150px;
+            background: #FFF;
+
+        }
+
+        .main {
+            padding: 0 10px;
+        }
+
+        @media screen and (max-height: 450px) {
+            .sidenav {
+                padding-top: 15px;
+            }
+        }
+
+        @media screen and (max-width: 450px) {
+            .login-form {
+                margin-top: 10%;
+            }
+
+            .register-form {
+                margin-top: 10%;
+            }
+        }
+
+        @media screen and (min-width: 768px) {
+            .main {
+                margin-left: 40%;
+            }
+
+            .sidenav {
+                width: 40%;
+                position: fixed;
+                z-index: 1;
+                top: 0;
+                left: 0;
+            }
+
+            .login-form {
+                margin-top: 80%;
+            }
+
+            .register-form {
+                margin-top: 20%;
+            }
+        }
+
+
+        .login-main-text {
+            margin-top: 20%;
+            padding: 60px;
+            color: #fff;
+        }
+
+        .login-main-text h2 {
+            font-weight: 300;
+        }
+
+        .btn-black {
+            background-color: #000 !important;
+            color: #fff;
+        }
+
+        button:hover {
+            text-decoration: none;
+        }
+    </style>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+
+<body>
+
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="sidenav"
+     th:style="
+     'height: 100%; background:url(' + @{/img/Limousine4.jpg} + ');overflow-x: hidden;padding-top: 20px;background-size: cover;'"
+>
+    <div class="login-main-text">
+        <h2>Bus Ticket<br> Login Page</h2>
+        <p>Login or register from here to access.</p>
+    </div>
+</div>
+<div class="main">
+    <div class="col-md-6 col-sm-12">
+        <div class="login-form">
+            <form th:action="@{/login/submit}" th:object="${login}" method="post" id="loginForm">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" th:field="*{id}" class="form-control" placeholder="Username"/>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" th:field="*{password}" class="form-control" placeholder="Password"/>
+                </div>
+
+                <div th:if="${seatIds != null}" th:each="seatId : ${seatIds}">
+                    <input type="hidden" name="seatIds" th:value="${seatId}">
+                </div>
+
+                <input type="hidden" th:if="${cusViewTicketsAction != null}"
+                       name="cusViewTicketsAction"
+                       th:value="${cusViewTicketsAction}"/>
+
+                <input type="hidden" th:if="${cusViewProfileAction != null}"
+                       name="cusViewProfileAction"
+                       th:value="${cusViewProfileAction}"/>
+
+                <input type="hidden" th:if="${cusViewWalletAction != null}"
+                       name="cusViewWalletAction"
+                       th:value="${cusViewWalletAction}"/>
+
+
+            </form>
+
+            <button type="submit" class="btn btn-black" form="loginForm">Login</button>
+            <!--<button type="submit" class="btn btn-secondary"><a href="register.html"
+                                                               style="text-decoration: none; color: white;">Register</a>
+            </button>-->
+            <a th:href="@{/register_form}">
+                <button type="submit" class="btn btn-secondary">
+                    Register
+                </button>
+            </a>
+
+            <span style="color: red" th:if="${login_failed_msg != null}" th:text="${login_failed_msg}"></span>
+
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>

@@ -1,0 +1,331 @@
+<!--
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+<form method="post" th:action="@{/register/new}" th:object="${user}">
+
+    <label for="username">Username: </label>
+    <input id="username" type="text" th:field="*{id}"/>
+    <span th:if="${errors != null}" th:text="${errors.idError}"></span>
+    <br>
+    <br>
+
+    <label for="firstName">First Name: </label>
+    <input id="firstName" type="text" th:field="*{firstName}"/>
+    <span th:if="${errors != null}" th:text="${errors.firstNameError}"></span>
+    <br>
+    <br>
+
+    <label for="lastName">Last Name: </label>
+    <input id="lastName" type="text" th:field="*{lastName}"/>
+    <span th:if="${errors != null}" th:text="${errors.lastNameError}"></span>
+    <br>
+
+    <label for="password">Password: </label>
+    <input type="password" id="password" th:field="*{password}"/>
+    <span th:if="${errors != null}" th:text="${errors.passwordError}"></span>
+    <br>
+
+    <label for="confirm">Confirm Password: </label>
+    <input type="password" id="confirm" th:field="*{confirm}"/>
+    <span th:if="${errors != null}" th:text="${errors.confirmError}"></span>
+    <br>
+
+    <input type="submit" value="Register Account"/>
+</form>
+<a th:href="@{/home}">Back to login</a>
+</body>
+</html>-->
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<!--<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <style>
+        body {
+            font-family: "Lato", sans-serif;
+        }
+        span {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+&lt;!&ndash;&#45;&#45;&#45;&#45; Include the above in your HEAD tag &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;
+<form method="post" th:action="@{/register/new}" th:object="${user}">
+
+
+    <div class="container-fluid" style="padding-top:8%;">
+        <section class="container">
+            <div class="container-page">
+                <div class="col-md-5">
+                    <h3 class="dark-grey">Registration</h3>
+
+                    <div class="form-group col-lg-12">
+                        <label>Username</label>
+                        <input type="text" class="form-control" th:field="*{id}" required>
+                        <span th:if="${errors != null}" th:text="${errors.idError}"></span>
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label>Password</label>
+                        <input type="password" class="form-control" th:field="*{password}" required>
+                        <span th:if="${errors != null}" th:text="${errors.passwordError}"></span>
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label>Repeat Password</label>
+                        <input type="password" name="" class="form-control" th:field="*{confirm}" required>
+                        <span th:if="${errors != null}" th:text="${errors.confirmError}"></span>
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label>First name</label>
+                        <input type="text" name="" class="form-control" th:field="*{firstName}" required>
+                        <span th:if="${errors != null}" th:text="${errors.firstNameError}"></span>
+
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Last Name</label>
+                        <input type="text" name="" class="form-control" th:field="*{lastName}" required>
+                        <span th:if="${errors != null}" th:text="${errors.lastNameError}"></span>
+
+                    </div>
+
+                    <div class="col-sm-6">
+                        <input type="checkbox" class="checkbox" />Sigh up for our newsletter
+                    </div>
+
+                    <div class="col-sm-6">
+                        <input type="checkbox" class="checkbox" />Send notifications to this email
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <h3 class="dark-grey">Terms and Conditions</h3>
+                    <p>
+                        By clicking on "Register" you agree to The Company's' Terms and Conditions
+                    </p>
+                    <p>
+                        While rare, prices are subject to change based on exchange rate fluctuations -
+                        should such a fluctuation happen, we may request an additional payment. You have the option to
+                        request a full refund or to pay the new price. (Paragraph 13.5.8)
+                    </p>
+                    <p>
+                        Should there be an error in the description or pricing of a product, we will provide you with a
+                        full refund (Paragraph 13.5.6)
+                    </p>
+                    <p>
+                        Acceptance of an order by us is dependent on our suppliers ability to provide the product.
+                        (Paragraph 13.5.6)
+                    </p>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                    <button type="submit" class="btn btn-primary">
+                        <a th:href="@{/home}">Back</a>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+</form>
+</body>-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+    <style>
+
+
+        form {
+            width: 40%;
+            margin: auto;
+            padding-top: -100px;
+            border: none;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            position: relative;
+            margin: 40px 0px;
+        }
+
+        .label-txt {
+            position: absolute;
+            top: -1.6em;
+            padding: 10px;
+            font-family: sans-serif;
+            font-size: .8em;
+            letter-spacing: 1px;
+            color: white;
+            transition: ease .3s;
+        }
+
+        .input {
+            width: 100%;
+            padding: 10px;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: white;
+        }
+
+        .line-box {
+            position: relative;
+            width: 100%;
+            height: 2px;
+            background: #BCBCBC;
+        }
+
+        .line {
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            top: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: bisque;
+            transition: ease .6s;
+        }
+
+        .input:focus + .line-box .line {
+            width: 100%;
+        }
+
+        .label-active {
+            top: -3em;
+        }
+
+        button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: rgb(220, 220, 220);
+            font-weight: bold;
+            color: rgb(120, 120, 120);
+            border: none;
+            outline: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: ease .3s;
+            opacity: 1.0;
+        }
+
+        button:hover {
+            background: black;
+            color: #ffffff;
+        }
+
+        a {
+            text-decoration: none;
+            display: inline-block;
+            padding: 10px 25px;
+            font-size: 40px;
+        }
+
+        a:hover {
+            color: black;
+            text-decoration: none;
+        }
+
+        .previous {
+            color: black;
+        }
+
+        .next {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .errorSpan {
+            color: red;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+
+            $('.input').focus(function () {
+                $(this).parent().find(".label-txt").addClass('label-active');
+            });
+
+            $(".input").focusout(function () {
+                if ($(this).val() == '') {
+                    $(this).parent().find(".label-txt").removeClass('label-active');
+                }
+                ;
+            });
+
+        });
+    </script>
+</head>
+
+<body th:style="
+'background:url(' +@{/img/screen-4.jpg} + ') no-repeat; background-size: cover;'">
+
+<a th:href="@{/home}" class="previous round"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+<!------ Include the above in your HEAD tag ---------->
+<form method="post" th:action="@{/register/new}" th:object="${user}">
+
+    <label>
+        <p class="label-txt">ENTER YOUR USERNAME</p>
+        <input type="text" class="input" th:field="*{id}" required>
+        <div class="line-box">
+            <div class="line"></div>
+        </div>
+        <span class="errorSpan" th:if="${errors != null}" th:text="${errors.idError}"></span>
+    </label>
+    <label>
+        <p class="label-txt">ENTER YOUR FIRSTNAME</p>
+        <input type="text" class="input" th:field="*{firstName}" required>
+        <div class="line-box">
+            <div class="line"></div>
+        </div>
+        <span class="errorSpan" th:if="${errors != null}" th:text="${errors.firstNameError}"></span>
+    </label>
+    <label>
+        <p class="label-txt">ENTER YOUR LASTNAME</p>
+        <input type="text" class="input" th:field="*{lastName}" required>
+        <div class="line-box">
+            <div class="line"></div>
+        </div>
+        <span class="errorSpan" th:if="${errors != null}" th:text="${errors.lastNameError}"></span>
+    </label>
+    <label>
+        <p class="label-txt">ENTER YOUR PASSWORD</p>
+        <input type="password" class="input" th:field="*{password}" required>
+        <div class="line-box">
+            <div class="line"></div>
+        </div>
+        <span class="errorSpan" th:if="${errors != null}" th:text="${errors.passwordError}"></span>
+    </label>
+    <label>
+        <p class="label-txt">ENTER CONFIRM PASSWORD</p>
+        <input type="password" class="input" th:field="*{confirm}" required>
+        <div class="line-box">
+            <div class="line"></div>
+        </div>
+        <span class="errorSpan" th:if="${errors != null}" th:text="${errors.confirmError}"></span>
+    </label>
+    <button type="submit">Confirm Register</button>
+</form>
+</body>
+
+</html>

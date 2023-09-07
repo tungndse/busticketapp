@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<!--<table>
+    <tr>
+        <th>Ticket Id</th>
+        <th>Seat Id</th>
+        <th>Booked By</th>
+        <th>Status</th>
+        <th>Cancel Action</th>
+        <th>Set Done</th>
+    </tr>
+    <tr th:each="ticket : ${listTickets}">
+        <td th:text="${ticket.id}"></td>
+        <td th:text="${ticket.seatId}"></td>
+        <td th:text="${ticket.userId}"></td>
+        <td>
+            <span th:if="${ticket.status == 0}">Canceled</span>
+            <span th:if="${ticket.status == 1}">Being Booked</span>
+            <span th:if="${ticket.status == 2}">Done</span>
+        </td>
+        <td>
+            <form th:if="${ticket.status == 1}" th:action="@{/cancel_ticket}" method="get">
+                <input type="hidden" name="ticketIdStr" th:value="${ticket.id}"/>
+                <input type="submit" value="Cancel"/>
+            </form>
+        </td>
+        <td>
+            <form th:if="${ticket.status == 1}" th:action="@{/set_done}" method="get">
+                <input type="hidden" name="ticketIdStr" th:value="${ticket.id}"/>
+                <input type="submit" value="Set Done"/>
+            </form>
+        </td>
+    </tr>
+</table>
+
+<h3>Filter tickets by status:</h3>
+<form th:action="@{/conductor/searchTickets}" method="get">
+    <input type="radio" name="statusStr" th:value="${0}"/>
+    <span>Canceled</span>
+    <br>
+    <input type="radio" name="statusStr" th:value="${1}" checked/>
+    <span>Active</span>
+    <br>
+    <input type="radio" name="statusStr" th:value="${2}"/>
+    <span>Finished</span>
+    <br>
+    <input type="submit" value="Commit Search"/>
+</form>
+
+<a th:href="@{/conductor/home}">Back to home</a>-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View all Ticket</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+
+    <!--import css sources-->
+    <style>
+        body {
+            background-color: #616161 !important;
+        }
+
+        a {
+            text-decoration: none !important;
+        }
+
+
+        table,
+        th,
+        td {
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            font-size: large;
+            padding-right: 40px;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+    </style>
+    <script>
+        function logoutFun() {
+            localStorage.clear();
+            sessionStorage.clear();
+            window.location = "login.html";
+        }
+    </script>
+
+
+</head>
+
+<body>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-bar-block w3-gray w3-animate-left w3-text-white w3-collapse w3-top w3-center"
+     style="z-index:3;width:300px;font-weight:bold" id="mySidebar"><br>
+    <h1 class="w3-padding-64 w3-center"><b> Seller <br>Ticket</b></h1>
+    <a class="w3-bar-item w3-button bt" th:href="@{/conductor-view-all-tickets-booked}">View tickets</a>
+    <a class="w3-bar-item w3-button bt" th:href="@{/conductor-view-all-available-seats}">View seats</a>
+    <p>
+        <a th:href="@{/logout}">
+            <button class="w3-button w3-light-grey w3-padding-large w3-margin-top w3-margin-bottom">
+                Logout
+            </button>
+        </a>
+    </p>
+</nav>
+
+<div class="w3-container  w3-center w3-text-light-grey w3-padding-32">
+    <div class="w3-content w3-justify" style="max-width:auto">
+        <div class="container">
+            <h2>View all tickets</h2>
+
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Ticket Id</th>
+                    <th>Seat Id</th>
+                    <th>Booked By</th>
+                    <th>Status</th>
+                    <th>Cancel</th>
+                    <th>Set Done</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="ticket : ${listTickets}">
+                    <td th:text="${ticket.id}"></td>
+                    <td th:text="${ticket.seat.id}"></td>
+                    <td th:text="${ticket.userId}"></td>
+                    <td>
+                        <span th:if="${ticket.status == 0}">Canceled</span>
+                        <span th:if="${ticket.status == 1}">Being Booked</span>
+                        <span th:if="${ticket.status == 2}">Done</span>
+                    </td>
+                    <td>
+                        <form th:if="${ticket.status == 1}" th:action="@{/conductor_cancel_ticket}" method="get">
+                            <input type="hidden" name="ticketIdStr" th:value="${ticket.id}"/>
+                            <input type="submit" value="Cancel"/>
+                        </form>
+                    </td>
+                    <td>
+                        <form th:if="${ticket.status == 1}" th:action="@{/set_done}" method="get">
+                            <input type="hidden" name="ticketIdStr" th:value="${ticket.id}"/>
+                            <input type="submit" value="Set Done"/>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<div class="w3-container  w3-center w3-text-light-grey w3-padding-32">
+    <div class="w3-content w3-justify">
+        <h3>Filter tickets by status:</h3>
+        <form th:action="@{/conductor/searchTickets}" method="get">
+            <input type="radio" name="statusStr" th:value="${0}"/>
+            <span>Canceled</span>
+            <br>
+            <input type="radio" name="statusStr" th:value="${1}" checked/>
+            <span>Active</span>
+            <br>
+            <input type="radio" name="statusStr" th:value="${2}"/>
+            <span>Finished</span>
+            <br>
+            <input type="submit" value="Commit Search"/>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
+

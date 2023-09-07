@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Bus</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Quicksand:400,500,700');
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Quicksand", sans-serif;
+            font-size: 62.5%;
+            font-size: 10px;
+        }
+
+        .nav {
+            width: 100%;
+            height: 65px;
+            position: fixed;
+            line-height: 65px;
+            text-align: center;
+        }
+
+        .nav div.logo {
+            float: left;
+            width: auto;
+            height: auto;
+            padding-left: 3rem;
+        }
+
+        .nav div.logo a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 2.5rem;
+        }
+
+        .nav div.logo a:hover {
+            color: #00E676;
+        }
+
+        .nav div.main_list {
+            height: 65px;
+            float: right;
+        }
+
+        .nav div.main_list ul {
+            width: 100%;
+            height: 65px;
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav div.main_list ul li {
+            width: auto;
+            height: 65px;
+            padding: 0;
+            padding-right: 3rem;
+        }
+
+        .nav div.main_list ul li a {
+            text-decoration: none;
+            color: lavender;
+            line-height: 65px;
+            font-size: 2.4rem;
+        }
+
+        .nav div.main_list ul li a:hover {
+            color: lightslategrey;
+        }
+
+        .home {
+            width: 100%;
+            height: 100vh;
+            background-image: url("/img/customer-front.jpg") !important;
+            background-position: center top;
+            background-size: cover;
+        }
+
+        .navTrigger {
+            display: none;
+        }
+
+        .nav {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            -webkit-transition: all 0.4s ease;
+            transition: all 0.4s ease;
+        }
+
+        .form div {
+            float: left;
+            width: 20%;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .form-control {
+            border: none;
+            font-family: 'Alegreya', serif;
+            background-color: transparent;
+            border-radius: 0px;
+            border: none;
+            height: 50px;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            padding: 0;
+            font-size: 28px;
+            color: #3c404a;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .form-label {
+            text-align: center;
+            color: #818390;
+            display: block;
+            font-weight: 400;
+            height: 30px;
+            line-height: 30px;
+            font-size: 20px;
+        }
+
+        .form {
+            position: absolute;
+        }
+
+        .submit-btn {
+            background: #9a8067;
+            color: #fff;
+            border: none;
+            font-weight: 400;
+            text-transform: uppercase;
+            font-size: 14px;
+            display: block;
+            height: 50px;
+            width: 95%;
+            margin-top: 30px;
+        }
+
+        .submit-btn a {
+            text-decoration: none;
+            color: yellow;
+        }
+    </style>
+
+</head>
+
+<body>
+<nav class="nav">
+    <div class="container">
+        <div class="logo">
+            <a th:href="@{/customer/home}">HOME</a>
+        </div>
+        <div id="mainListDiv" class="main_list">
+            <ul class="navlinks">
+                <li><a th:href="@{/customer/update_user_info}">User Profile</a></li>
+                <li><a th:href="@{/customer/my_wallet}">Wallet</a></li>
+                <li><a th:href="@{/customer/view_buses}">Booking</a></li>
+                <li><a th:href="@{/customer/view_my_tickets}">View Tickets</a></li>
+                <li th:if="${session.session_user != null}"><a  th:href="@{/logout}">Log out</a></li>
+                <li th:if="${session.session_user == null}"><a th:href="@{/login}">Log in</a></li>
+            </ul>
+        </div>
+        <span class="navTrigger">
+                <i></i>
+                <i></i>
+                <i></i>
+            </span>
+    </div>
+</nav>
+
+<section class="home">
+</section>
+
+<div style="background-color:white;width: 90%;margin-top:-560px;margin-left: 5%;" class="form">
+
+    <form th:action="@{/customer/search_bus/commit}" method="post" th:object="${searchInfo}">
+
+        <div style="     font-family: 'Alegreya', serif;
+        margin: 0;
+        display: inline-block;
+        font-size: 30px;
+        color: #9a8067;">
+            <h2>Book Now</h2>
+        </div>
+
+        <div>
+            <span class="form-label">Depart From</span>
+            <select th:field="*{fromId}" class="form-control">
+                <option th:each="location : ${listLoc}"
+                        th:value="${location.id}"
+                        th:text="${location.name}"></option>
+            </select>
+            <span class="select-arrow"></span>
+        </div>
+
+        <div>
+            <span class="form-label">To Destination</span>
+            <select th:field="*{toId}" class="form-control">
+                <option th:each="location : ${listLoc}"
+                        th:value="${location.id}"
+                        th:text="${location.name}"></option>
+            </select>
+            <span class="select-arrow"></span>
+        </div>
+        <div>
+            <span class="form-label">On Date</span>
+            <input class="form-control" type="date" th:min="${#dates.format(searchInfo.date, 'yyyy-MM-dd')}" th:field="*{date}">
+        </div>
+
+
+        <!--HH:mm-->
+
+        <!--${#dates.format(bus.dateRun, 'dd-MM-yyyy')}-->
+
+        <!--th:attr="min=${searchInfo.date}"-->
+
+        <div>
+            <button class="submit-btn" type="submit">
+                Check availability</button>
+        </div>
+    </form>
+</div>
+</body>
+
+
+
+
+</html>

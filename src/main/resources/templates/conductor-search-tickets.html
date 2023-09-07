@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <title>SEARCH TICKET SELLER</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+
+    <style>
+        * {
+            font-size: 25px;
+        }
+
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: "Raleway", Arial, Helvetica, sans-serif
+        }
+
+        a {
+            text-decoration: none !important;
+        }
+
+        a:hover {
+            background-color: turquoise !important;
+        }
+
+        .navedit {
+            position: fixed;
+            margin-top: 0;
+            z-index: 3;
+
+        }
+
+        .w3-input {
+            padding: 8px;
+            display: block;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            width: 100%;
+            height: 50px;
+        }
+
+        .m4 {
+            margin-right: 10px;
+        }
+
+        .editbut {
+            float: right;
+            width: 300px;
+        }
+
+
+        .imageedit {
+            margin-top: 50px;
+        }
+
+        .contentedit {
+            z-index: 2;
+            min-height: 300px;
+
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: 0.9;
+        }
+
+        button:hover {
+            opacity: 1;
+        }
+
+
+        /* Add padding to container elements */
+        .container {
+            padding: 16px;
+        }
+
+        /* Clear floats */
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        /* eidt table */
+        .edittable {
+            border: 1px solid tan;
+            text-align: center;
+            background-color: wheat;
+        }
+
+        .editcheck {
+            width: 50px;
+            height: 50px;
+        }
+
+        .editdiv {
+            padding-top: 10px !important;
+        }
+
+
+        /* Change styles for cancel button and signup button on extra small screens */
+        @media screen and (max-width: 300px) {
+
+            .cancelbtn,
+            .signupbtn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body class="w3-light-grey">
+
+<!-- Navigation Bar -->
+<div class="w3-bar w3-black w3-large navedit">
+    <a th:href="@{/conductor/home}" class="w3-bar-item w3-button w3-red w3-mobile"><i
+            class="fa fa-bed w3-margin-right"></i><b>Ticket
+        Bus </b>SELLER </a>
+    <div id="panel">
+        <a th:href="@{/conductor-view-all-tickets-booked}" class="w3-bar-item w3-button w3-mobile "
+           style="color: turquoise">Manage tickets</a>
+        <a th:href="@{/conductor/search_bus}" class="w3-bar-item w3-button w3-mobile ">Manage seats</a>
+    </div>
+    <a th:href="@{/logout}" class="w3-bar-item w3-button w3-right w3-black w3-mobile">LOGOUT</a>
+</div>
+
+<div class="w3-content contentedit" style="max-width:1500px; height: 300px;transition: unset;">
+    <img class="w3-image imageedit" th:src="@{/img/bus33.png}" style="width: 1500px;height: 300px;">
+</div>
+
+<!-- Page content -->
+<div class="w3-content contentedit" style="max-width:80%;">
+    <div class="w3-container w3-margin-top">
+        <br/><br/>
+        <h3>Search By:</h3>
+        </p>
+    </div>
+
+    <div class="w3-row-padding">
+
+        <form id="searchForm" th:action="@{/conductor/search_tickets_by_user/commit}" method="get">
+
+            <div class="w3-col m4">
+                <input class="w3-input w3-block w3-white" type="text" name="userId" placeholder="Enter username">
+            </div>
+
+            <div class="w3-col m2">
+                <select name="ticketStatus" class="w3-input w3-border">
+                    <option th:value="${0}">Canceled</option>
+                    <option th:value="${1}">Active</option>
+                    <option th:value="${2}">Done</option>
+                </select>
+            </div>
+        </form>
+
+        <div class="w3-col m2">
+
+            <input form="searchForm" class="w3-input w3-block w3-blue" type="submit" name="searchMethod"
+                   value="Search By User"/>
+        </div>
+
+        <div class="w3-col m2">
+
+            <input form="searchForm" class="w3-input w3-block w3-red" type="submit" name="searchMethod"
+                   value="Search By Bus"/>
+        </div>
+    </div>
+
+</div>
+
+<div class="w3-content contentedit" th:if="${listTickets != null && !listTickets.isEmpty()}" style="max-width:80%;">
+    <br/>
+    <form id="cancelForm" th:action="@{/conductor/cancel_tickets}" method="get">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>User</th>
+                <th>Bus No</th>
+                <th>Seat No</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Passenger</th>
+                <th>Personal ID</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="ticket : ${listTickets}">
+                <td th:text="${ticket.user.id}"></td>
+                <td th:text="${ticket.seat.bus.id}"></td>
+                <td th:text="${ticket.seat.seatNo}"></td>
+                <td th:text="${ticket.seat.bus.fromLoc.name}"></td>
+                <td th:text="${ticket.seat.bus.toLoc.name}"></td>
+                <td th:text="${#dates.format(ticket.seat.bus.dateRun, 'dd-MM-yyyy')}"></td>
+                <td th:text="${#dates.format(ticket.seat.bus.dateRun, 'HH:mm')}"></td>
+                <td th:text="${ticket.passengerName}"></td>
+                <td th:text="${ticket.passengerIdentity}" th:style="${ticket.passengerIsChild ? 'color : red' : ''}"></td>
+                <td th:if="${ticket.status == 0}">Canceled</td>
+                <td th:if="${ticket.status == 1}">Active</td>
+                <td th:if="${ticket.status == 2}">Finished</td>
+                <td>
+                    <input type="checkbox" name="ticketIds"
+                           th:value="${ticket.id}" th:disabled="${ticket.status != 1}"/>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="w3-content contentedit" th:if="${listTickets != null && !listTickets.isEmpty()}" style="max-width:80%;">
+    <button type="submit" form="cancelForm" class="editbut">Cancel All Selected</button>
+</div>
+
+<span th:text="${noTicketFoundMsg}" style="color: red; "></span>
+
+
+<!-- Footer -->
+<footer class="w3-padding-32 w3-black w3-center w3-margin-top">
+    <h5>Find Us On</h5>
+    <div class="w3-xlarge w3-padding-16">
+        <i class="fa fa-facebook-official w3-hover-opacity"></i>
+        <i class="fa fa-instagram w3-hover-opacity"></i>
+        <i class="fa fa-snapchat w3-hover-opacity"></i>
+        <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+        <i class="fa fa-twitter w3-hover-opacity"></i>
+        <i class="fa fa-linkedin w3-hover-opacity"></i>
+    </div>
+    <p>Copyright by @ 2020 <a href="https://www.w3schools.com/w3css/default.asp" target="_blank"
+                              class="w3-hover-text-green">Ticket BUS</a></p>
+</footer>
+
+
+</body>
+</html>

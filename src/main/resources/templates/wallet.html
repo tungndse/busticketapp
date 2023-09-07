@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href='https://fonts.googleapis.com/css?family=Adamina' rel='stylesheet'>
+
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css"/>
+    <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <style>
+
+
+        * {
+            font-size: 22px;
+            font-family: 'Adamina';
+        }
+
+        a {
+            text-decoration: none !important;
+        }
+
+        h1 {
+            font-family: 'Adamina';
+            font-size: 40px;
+        }
+
+        h4 {
+            font-family: 'Adamina';
+            font-size: 25px;
+        }
+
+        .container {
+            max-width: 1200px;
+        }
+
+        .lh-condensed {
+            line-height: 1.25;
+        }
+
+
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        .button {
+            background-color: white;
+            color: grey;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border-color: grey;
+            width: 30%;
+            opacity: 0.9;
+
+        }
+
+        .add {
+            border: none;
+            background-color: rgb(97, 97, 253);
+            color: white;
+            padding: 14px 20px;
+            margin: 30px 0;
+            border-color: grey;
+            width: 100%;
+
+
+        }
+
+        .button:hover {
+            opacity: 1;
+            border: none;
+            background-color: rgb(97, 97, 253);
+            color: white;
+        }
+
+
+        .cancelbtn,
+        .signupbtn {
+            float: left;
+            width: 50%;
+        }
+
+        .cancelbtn {
+            padding: 14px 20px;
+            background-color: #f44336;
+        }
+
+        .w3-input {
+            padding: 8px;
+            display: block;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            width: 100%;
+            height: 50px;
+        }
+
+        #button {
+            width: 30%;
+            height: 50px;
+            margin-top: 10px;
+            padding-top: 10px;
+        }
+
+        .btn-group {
+            width: 100%;
+        }
+
+        .btn-primary {
+            color: grey;
+            background-color: beige;
+            border-color: grey;
+        }
+
+        .btn-primary.active,
+        .btn-primary.focus,
+        .btn-primary:active,
+        .btn-primary:focus,
+        .btn-primary:hover,
+        .open > .dropdown-toggle.btn-primary {
+            color: #fff;
+            background-color: #286090;
+            border-color: #204d74
+        }
+
+
+    </style>
+
+</head>
+
+<body>
+<div class="w3-bar w3-black w3-large navedit">
+    <a href="#" class="w3-bar-item w3-button w3-red w3-mobile"><i class="fa fa-bed w3-margin-right"></i><b>Ticket
+        Bus </b>Payment </a>
+    <div id="panel">
+        <a th:href="@{/customer/update_user_info}" class="w3-bar-item w3-button w3-mobile ">
+            User Profile</a>
+        <a th:href="@{/customer/view_buses}" class="w3-bar-item w3-button w3-mobile ">
+            Search Bus</a>
+        <a th:href="@{/customer/view_my_tickets}" class="w3-bar-item w3-button w3-mobile ">
+            View Tickets</a>
+        <a th:href="@{/customer/my_wallet}" class="w3-bar-item w3-button w3-mobile ">
+            Wallet</a>
+    </div>
+    <a th:href="@{/logout}" class="w3-bar-item w3-button w3-right w3-black w3-mobile">LOGOUT</a>
+</div>
+<form th:action="@{/customer/add_money}" method="get" th:if="${wallet != null}">
+    <div style="width: 600px; height:500px; background-color: lavender; margin: auto; margin-top: 15px; padding: 25px;">
+        <label for="" class="title">
+            Your Balance &nbsp;
+        </label>
+        <div class="form-group-wrap" style="margin-top: 2%;">
+            <input class="form-control"
+                   th:value="${'$' + wallet.balance}"
+                   style="text-align: center;
+                   font-size:  50px;
+                   color: red; background-color: white"
+                   disabled>
+            <br/>
+            <label for="" class="title">
+                Pick an amount to add
+            </label>
+            <br/>
+
+
+            <div class="btn-group" data-toggle="buttons">
+
+                <label class="btn btn-primary" for="option1" style=" font-size: x-large">
+                    <input type="radio" name="options" id="option1" autocomplete="off"
+                           th:value="${50}"
+                           checked="checked">
+                    $50</label>
+
+                <label class="btn btn-primary" for="option2" style=" font-size: x-large">
+                    <input type="radio" name="options" id="option2" autocomplete="off"
+                           th:value="${100}"/>
+                    $100
+                </label>
+
+
+                <label class="btn btn-primary" for="option3" style="font-size: x-large">
+                    <input type="radio" name="options" id="option3" autocomplete="off"
+                           th:value="${200}"
+                          />
+                    $200</label>
+
+
+                <label class="btn btn-primary" for="option4" style="font-size: x-large">
+                    <input type="radio" name="options" id="option4" autocomplete="off"
+                           th:value="${300}" />
+                    $300</label>
+
+
+                <label class="btn btn-primary" for="option5" style=" font-size: x-large">
+                    <input type="radio" name="options" id="option5" autocomplete="off"
+                           th:value="${400}"/>
+                    $400</label>
+
+
+                <label class="btn btn-primary" for="option6" style="font-size: x-large">
+                    <input type="radio" name="options" id="option6" autocomplete="off"
+                           th:value="${500}" />
+                    $500</label>
+
+            </div>
+            <button type="submit" class="add">ADD</button>
+        </div>
+    </div>
+</form>
+<footer class="w3-padding-32 w3-black w3-center w3-margin-top">
+    <h5>Find Us On</h5>
+    <div class="w3-xlarge w3-padding-16">
+        <i class="fa fa-facebook-official w3-hover-opacity"></i>
+        <i class="fa fa-instagram w3-hover-opacity"></i>
+        <i class="fa fa-snapchat w3-hover-opacity"></i>
+        <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+        <i class="fa fa-twitter w3-hover-opacity"></i>
+        <i class="fa fa-linkedin w3-hover-opacity"></i>
+    </div>
+    <p>Copyright by @ 2020 <a href="" target="_blank" class="w3-hover-text-green">Ticket BUS</a></p>
+</footer>
+</body>
+
+</html>

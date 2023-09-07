@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+<title>CREATE USER</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+
+
+
+<style>
+    * {
+        font-size: 22px;
+    }
+
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: "Raleway", Arial, Helvetica, sans-serif
+    }
+
+    a {
+        text-decoration: none !important;
+    }
+
+    a:hover {
+        background-color: turquoise !important;
+    }
+
+    .navedit {
+        position: fixed;
+        margin-top: 0;
+        z-index: 3;
+
+    }
+
+    .imageedit {
+        margin-top: 50px;
+    }
+
+    .contentedit {
+        z-index: 2;
+        min-height: 600px;
+
+    }
+
+    input[type=text],
+    input[type=password] {
+        width: 100%;
+        padding: 15px;
+        margin: 5px 0 22px 0;
+        display: inline-block;
+        border: none;
+    }
+    input[type=submit] {
+        width: 100%;
+        padding: 15px;
+        margin: 5px 0 22px 0;
+        display: inline-block;
+        border: none;
+        background-color: burlywood;
+    }
+
+    input[type=text]:focus,
+    input[type=password]:focus {
+        background-color: #ddd;
+        outline: none;
+    }
+
+    hr {
+        border: 1px solid #f1f1f1;
+        margin-bottom: 25px;
+    }
+
+    /* Set a style for all buttons */
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        opacity: 0.9;
+    }
+
+    button:hover {
+        opacity: 1;
+    }
+
+    /* Extra styles for the cancel button */
+    .cancelbtn {
+        padding: 14px 20px;
+        background-color: #f44336;
+    }
+
+    /* Float cancel and signup buttons and add an equal width */
+    .cancelbtn,
+    .signupbtn {
+        float: left;
+        width: 50%;
+    }
+
+    /* Add padding to container elements */
+    .container {
+        padding: 16px;
+    }
+
+    /* Clear floats */
+    .clearfix::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+    .editradio label {
+        margin-left: 10px;
+    }
+
+    /* Change styles for cancel button and signup button on extra small screens */
+    @media screen and (max-width: 300px) {
+
+        .cancelbtn,
+        .signupbtn {
+            width: 100%;
+        }
+    }
+
+    span {
+        color: red;
+    }
+
+</style>
+</head>
+
+<body class="w3-light-grey">
+
+<!-- Navigation Bar -->
+<div class="w3-bar w3-black w3-large navedit">
+    <a href="#" class="w3-bar-item w3-button w3-red w3-mobile"><i class="fa fa-bed w3-margin-right"></i><b>Ticket
+        Bus </b>ADMIN </a>
+    <div id="panel">
+        <a th:href="@{/admin/insert_user}" class="w3-bar-item w3-button w3-mobile ">Create User</a>
+        <a th:href="@{/admin/view_users}" class="w3-bar-item w3-button w3-mobile " style="background-color: turquoise;">View User</a>
+        <a th:href="@{/admin/search_users}" class="w3-bar-item w3-button w3-mobile ">Find User</a>
+    </div>
+    <a th:href="@{/logout}" class="w3-bar-item w3-button w3-right w3-black w3-mobile">LOGOUT</a>
+</div>
+
+<div class="w3-content contentedit" style="max-width:1500px; height: 300px;transition: unset;">
+    <img class="w3-image imageedit" th:src="@{/img/bus33.png}" style="width: 1500px;height: 300px;">
+</div>
+
+<!-- Page content -->
+<div class="w3-content contentedit" style="max-width:1200px;">
+    <div class="w3-container w3-margin-top">
+        <h3>UPDATE INFORMATION</h3>
+        </p>
+    </div>
+    <!--form tao tai khoan-->
+    <div class="w3-row-padding">
+        <form method="post" th:action="@{/admin/update_user/submit}" th:object="${updated}" style="border:1px solid #ccc">
+            <div class="container">
+
+                <label for="email"><b>Username: </b></label>
+                <input type="text"  placeholder="Enter Username" th:value="${updated.id}" disabled>
+
+                <input type="hidden" th:field="*{id}"/>
+                <input type="hidden" th:field="*{role}"/>
+
+                <label for="email"><b>Firstname: </b></label>
+                <input type="text" placeholder="Enter Firstname" th:field="*{firstName}" required>
+                <span th:if="${errors != null}" th:text="${errors.firstNameError}"></span>
+                <br>
+
+                <label for="psw"><b>Lastname</b></label>
+                <input type="text" placeholder="Enter Lastname" th:field="*{lastName}" required>
+                <span th:if="${errors != null}" th:text="${errors.lastNameError}"></span>
+                <br>
+
+                <input type="submit" name="action" value="Reset Password"/>
+
+                <div class="clearfix">
+                    <a th:href="@{/admin/home}">
+                        <button type="button" class="cancelbtn">Cancel</button>
+                    </a>
+                    
+                    <button type="submit" class="signupbtn">Update User</button>
+                </div>
+            </div>
+        </form>
+        <br>
+    </div>
+
+</div>
+
+<!-- Footer -->
+<footer class="w3-padding-32 w3-black w3-center w3-margin-top">
+    <h5>Find Us On</h5>
+    <div class="w3-xlarge w3-padding-16">
+        <i class="fa fa-facebook-official w3-hover-opacity"></i>
+        <i class="fa fa-instagram w3-hover-opacity"></i>
+        <i class="fa fa-snapchat w3-hover-opacity"></i>
+        <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+        <i class="fa fa-twitter w3-hover-opacity"></i>
+        <i class="fa fa-linkedin w3-hover-opacity"></i>
+    </div>
+    <p>Copyright by @ 2020 <a href="login.html" target="_blank" class="w3-hover-text-green">Ticket BUS</a></p>
+</footer>
+
+
+</body>
+
+</html>

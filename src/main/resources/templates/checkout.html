@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout </title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href='https://fonts.googleapis.com/css?family=Adamina' rel='stylesheet'>
+    <style>
+        * {
+            font-size: 22px;
+            font-family: 'Adamina';
+        }
+
+        a {
+            text-decoration: none !important;
+        }
+
+        h1 {
+            font-family: 'Adamina';
+            font-size: 40px;
+        }
+
+        h4 {
+            font-family: 'Adamina';
+            font-size: 25px;
+        }
+
+        .container {
+            max-width: 1400px;
+        }
+
+        .lh-condensed {
+            line-height: 1.25;
+        }
+
+
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: 0.9;
+        }
+
+        button:hover {
+            opacity: 1;
+        }
+
+        .cancelbtn,
+        .signupbtn {
+            float: left;
+            width: 50%;
+        }
+
+        .cancelbtn {
+            padding: 14px 20px;
+            background-color: #f44336;
+        }
+
+        .w3-input {
+            padding: 8px;
+            display: block;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            width: 100%;
+            height: 50px;
+        }
+
+        .tdedit {
+            width: 130px;
+        }
+
+
+        thead {
+            background-color: cornflowerblue;
+        }
+    </style>
+</head>
+
+<body>
+<div class="w3-bar w3-black w3-large navedit">
+    <a th:href="@{/customer/home}" class="w3-bar-item w3-button w3-red w3-mobile"><i class="fa fa-bed w3-margin-right"></i><b>Ticket
+        Bus </b>Payment </a>
+    <div id="panel">
+        <a th:href="@{/customer/update_user_info}" class="w3-bar-item w3-button w3-mobile ">
+            User Profile</a>
+        <a th:href="@{/customer/view_buses}" class="w3-bar-item w3-button w3-mobile ">
+            Search Bus</a>
+        <a th:href="@{/customer/view_my_tickets}" class="w3-bar-item w3-button w3-mobile ">
+            View Tickets</a>
+        <a th:href="@{/customer/my_wallet}" class="w3-bar-item w3-button w3-mobile ">
+            Wallet</a>
+    </div>
+    <a th:href="@{/logout}" class="w3-bar-item w3-button w3-right w3-black w3-mobile">LOGOUT</a>
+</div>
+<div class="container" style="min-height: 850px;">
+    <div class="py-5 text-center">
+        <h1>Confirm Payment</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-4 order-md-2 mb-4">
+            <h4 class="mb-3">Checkout info:</h4>
+            <ul class="list-group mb-3 sticky-top">
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <small class="text-success">Bus ID:</small>
+                    </div>
+                    <span class="text-muted" th:text="${bus.id}"></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <small class="text-success">Booker ID:</small>
+                    </div>
+                    <span class="text-muted" th:text="${booker.id}"></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <small class="text-success">Booker Name:</small>
+                    </div>
+                    <span class="text-muted" th:text="${booker.firstName + ' ' + booker.lastName}"></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <small class="text-success">From:</small>
+                    </div>
+                    <span class="text-muted" th:text="${bus.fromLoc.name}"></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <small class="text-success">To:</small>
+                    </div>
+                    <span class="text-muted" th:text="${bus.toLoc.name}"></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <small class="text-success">Time:</small>
+                    </div>
+                    <span class="text-muted" th:text="${#dates.format(bus.dateRun, 'hh:mm a')}"></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <small class="text-success">Date:</small>
+                    </div>
+                    <span class="text-muted" th:text="${#dates.format(bus.dateRun, 'dd/MM/yyyy')}"></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <small class="text-success">Price/Ticket</small>
+                    </div>
+                    <span class="text-muted" th:text="${'$' + bus.price}"></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between bg-light">
+                    <div class="text-success">
+                        <small>Quantity:</small>
+                    </div>
+                    <span class="text-muted" th:text="${seats.size()}" th:if="${seats != null}"></span>
+                    <span class="text-muted" th:text="${checkoutSeats.size()}" th:if="${checkoutSeats != null}"></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <span class="text-success">Total (USD)</span>
+                    <strong th:text="${'$' + seats.size() * bus.price}" th:if="${seats != null}"></strong>
+                    <strong th:text="${'$' + checkoutSeats.size() * bus.price}" th:if="${checkoutSeats != null}"></strong>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-8 order-md-1">
+            <h4 class="mb-3">Passengers:</h4>
+            <div class="text-success">
+                <small th:if="${checkoutSeats != null && errorBooking == null}">
+                    On-going checkout available, so you see this instead of your previously picked seats.
+                    To skip this checkout, please Cancel from below so next time you don't have to see this.
+                    <br>
+                </small>
+
+                <small th:if="${errorBooking == null}">
+                    If passenger is a child please select the checkbox and enter caretaker's personal ID.
+                    The caretaker must be included in the form or has already owned a ticket booked by the same booker
+                    and has no more than 2 children attached.
+                </small>
+                <small th:if="${errorBooking != null}"
+                       th:text="${errorBooking}" style="color: red"></small>
+            </div>
+            <br/>
+            <form th:action="@{/customer/book_seats/confirm_payment}" id="checkoutForm" method="post">
+                <table class="table table-bordered">
+                    <input type="hidden" name="bookerId" th:value="${booker.id}"/>
+                    <input type="hidden" name="draftId"
+                           th:value="${checkoutSeats.get(0).checkout.id}" th:if="${checkoutSeats != null}"/>
+                    <thead>
+                    <tr>
+                        <th>Seat No</th>
+                        <th>Name</th>
+                        <th>Personal ID</th>
+                        <th>Child</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="seat : ${seats}" th:if="${seats != null}">
+                        <td class="tdedit">
+                            <input class="w3-input w3-border" type="text" th:value="${seat.seatNo}" disabled/>
+                            <input type="hidden" name="seatIds" th:value="${seat.id}"/>
+                        </td>
+                        <td>
+                            <input class="w3-input w3-border" type="text" name="passengerNames" required/>
+                        </td>
+                        <td>
+                            <input class="w3-input w3-border" type="text" name="passengerPIDs" required/>
+                        </td>
+                        <td>
+                            <input class="w3-input w3-border" type="checkbox" name="childSeats"
+                                   th:value="${seat.id}"/>
+                            <!--class="editcheck"-->
+                        </td>
+                    </tr>
+
+                    <tr th:each="checkoutSeat : ${checkoutSeats}" th:if="${checkoutSeats != null}">
+                        <td class="tdedit">
+                            <input class="w3-input w3-border" type="text" th:value="${checkoutSeat.seat.seatNo}"
+                                   disabled/>
+                            <input type="hidden" name="seatIds" th:value="${checkoutSeat.seat.id}"/>
+                        </td>
+                        <td>
+                            <input class="w3-input w3-border" type="text" name="passengerNames"
+                                   th:value="${checkoutSeat.passengerName}" required/>
+                        </td>
+                        <td>
+                            <input class="w3-input w3-border" type="text" name="passengerPIDs"
+                                   th:value="${checkoutSeat.passengerIdentity}" required/>
+                        </td>
+                        <td>
+                            <input class="w3-input w3-border" type="checkbox" name="childSeats"
+                                   th:value="${checkoutSeat.seat.id}"
+                                   th:checked="${checkoutSeat.passengerIsChild}"/>
+                            <!--class="editcheck"-->
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </form>
+
+            <div class="clearfix">
+                <button type="submit" class="cancelbtn" form="cancelForm">Cancel</button>
+                <button type="submit" form="checkoutForm" class="signupbtn">Pay Now</button>
+            </div>
+
+            <form id="cancelForm" th:action="@{/customer/book_seats/cancel_payment}" method="get">
+                <input type="hidden" name="busId" th:value="${bus.id}"/>
+                <input type="hidden" name="draftId"
+                       th:value="${checkoutSeats.get(0).checkout.id}" th:if="${checkoutSeats != null}"/>
+            </form>
+        </div>
+    </div>
+</div>
+<footer class="w3-padding-32 w3-black w3-center w3-margin-top">
+    <h5>Find Us On</h5>
+    <div class="w3-xlarge w3-padding-16">
+        <i class="fa fa-facebook-official w3-hover-opacity"></i>
+        <i class="fa fa-instagram w3-hover-opacity"></i>
+        <i class="fa fa-snapchat w3-hover-opacity"></i>
+        <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+        <i class="fa fa-twitter w3-hover-opacity"></i>
+        <i class="fa fa-linkedin w3-hover-opacity"></i>
+    </div>
+    <p>Copyright by @ 2020 <a href="" target="_blank" class="w3-hover-text-green">Ticket BUS</a></p>
+</footer>
+</body>
+
+</html>

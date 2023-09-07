@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+
+<html>
+<title>SET ROLE</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+
+
+
+<style>
+    * {
+        font-size: 22px;
+    }
+
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: "Raleway", Arial, Helvetica, sans-serif
+    }
+
+    a {
+        text-decoration: none !important;
+    }
+
+    a:hover {
+        background-color: turquoise !important;
+    }
+
+    .navedit {
+        position: fixed;
+        margin-top: 0;
+        z-index: 3;
+
+    }
+
+    .imageedit {
+        margin-top: 50px;
+    }
+
+    .contentedit {
+        z-index: 2;
+        min-height: 500px;
+    }
+
+    input:focus {
+        background-color: turquoise;
+    }
+    .w3-input{padding:8px;display:block;border:none;border-bottom:1px solid #ccc;width:100%;height: 50px;}
+    
+      
+</style>
+</html>
+
+<body class="w3-light-grey">
+
+<!-- Navigation Bar -->
+<div class="w3-bar w3-black w3-large navedit">
+    <a href="#" class="w3-bar-item w3-button w3-red w3-mobile"><i class="fa fa-bed w3-margin-right"></i><b>Ticket
+        Bus </b>ADMIN </a>
+    <div id="panel">
+        <a th:href="@{/admin/insert_user}" class="w3-bar-item w3-button w3-mobile ">Create User</a>
+        <a th:href="@{/admin/view_users}" class="w3-bar-item w3-button w3-mobile " style="background-color: turquoise;">View User</a>
+        <a th:href="@{/admin/search_users}" class="w3-bar-item w3-button w3-mobile ">Find User</a>
+    </div>
+    <a th:href="@{/logout}" class="w3-bar-item w3-button w3-right w3-black w3-mobile">LOGOUT</a>
+</div>
+
+<div class="w3-content contentedit" style="max-width:1500px; height: 300px;transition: unset;">
+    <img class="w3-image imageedit" th:src="@{/img/bus33.png}" style="width: 1500px;height: 300px;">
+</div>
+
+<!-- Page content -->
+<div class="w3-content contentedit" style="max-width:1400px;">
+    <div class="w3-container w3-margin-top">
+        <h3>Set Role of User</h3>
+    </div>
+
+
+    <div class="w3-row-padding">
+        <form th:action="@{/admin/update_user_role/submit}" th:object="${updated}" method="get">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Username</th>
+                <th>Current Role</th>
+                <th>Change into</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td th:text="${updated.id}"></td>
+                <td th:text="${updated.firstName}"></td>
+                <td th:text="${updated.lastName}"></td>
+                <td th:switch="${updated.role}">
+                    <span th:case="'0'">Customer</span>
+                    <span th:case="'1'">Conductor</span>
+                    <span th:case="'2'">Admin</span>
+                </td>
+
+                <input type="hidden" th:field="*{id}"/>
+                <input type="hidden" th:field="*{firstName}"/>
+                <input type="hidden" th:field="*{lastName}"/>
+                <input type="hidden" th:field="*{role}"/>
+
+                <td>
+                    <div class="w3-dropdown-hover" >
+                        <select name="newRoleStr" class="w3-input">
+                            <option th:value="${0}" th:selected="${updated.role == 0}">Customer</option>
+                            <option th:value="${1}" th:selected="${updated.role == 1}">Conductor</option>
+                            <option th:value="${2}" th:selected="${updated.role == 2}">Admin</option>
+                        </select>
+                    </div>
+                </td>
+
+                <td>
+                    <div class="w3-white">
+                        <input class="w3-input w3-border" type="submit" name="Set Role" value="Set Role">
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        </form>
+    </div>
+
+    <div class="w3-row-padding" th:if="${role_change_fail_msg != null}">
+        <span style="color: red" th:text="${role_change_fail_msg}"></span>
+    </div>
+
+</div>
+
+<!-- Footer -->
+<footer class="w3-padding-32 w3-black w3-center w3-margin-top">
+    <h5>Find Us On</h5>
+    <div class="w3-xlarge w3-padding-16">
+        <i class="fa fa-facebook-official w3-hover-opacity"></i>
+        <i class="fa fa-instagram w3-hover-opacity"></i>
+        <i class="fa fa-snapchat w3-hover-opacity"></i>
+        <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+        <i class="fa fa-twitter w3-hover-opacity"></i>
+        <i class="fa fa-linkedin w3-hover-opacity"></i>
+    </div>
+    <p>Copyright by @ 2020 <a href="https://www.w3schools.com/w3css/default.asp" target="_blank"
+                              class="w3-hover-text-green">Ticket BUS</a></p>
+</footer>
+
+
+</body>
+
+</html>

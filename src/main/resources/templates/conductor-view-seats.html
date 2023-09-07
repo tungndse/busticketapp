@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <title>VIEW SEATS SELLER</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+
+    <style>
+        * {
+            font-size: 25px;
+        }
+
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: "Raleway", Arial, Helvetica, sans-serif
+        }
+
+        a {
+            text-decoration: none !important;
+        }
+
+        a:hover {
+            background-color: turquoise !important;
+        }
+
+        .navedit {
+            position: fixed;
+            margin-top: 0;
+            z-index: 3;
+
+        }
+
+        .imageedit {
+            margin-top: 50px;
+
+        }
+
+        .contentedit {
+            z-index: 2;
+            min-height: 200px;
+
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: 0.9;
+        }
+
+        button:hover {
+            opacity: 1;
+        }
+
+        /* Extra styles for the cancel button */
+        .cancelbtn {
+            padding: 14px 20px;
+            background-color: #f44336;
+        }
+
+        /* Float cancel and signup buttons and add an equal width */
+        .cancelbtn,
+        .signupbtn {
+            float: left;
+            width: 50%;
+        }
+
+        /* Add padding to container elements */
+        .container {
+            padding: 16px;
+            font-size: 22px !important;
+        }
+
+        /* Clear floats */
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        .editradio label {
+            margin-left: 10px;
+        }
+
+        /* eidt table */
+        .edittable {
+            width: 200px !important;
+            border: 1px solid tan;
+            text-align: center;
+            background-color: wheat;
+
+        }
+
+        .editcheck {
+            width: 40px !important;
+            height: 20px !important;
+
+        }
+
+        .editdiv {
+            padding-top: 10px !important;
+        }
+        .editbut {
+            float: right;
+            width: 300px;
+        }
+
+
+        /* Change styles for cancel button and signup button on extra small screens */
+        @media screen and (max-width: 300px) {
+
+            .cancelbtn,
+            .signupbtn {
+                width: 100%;
+            }
+        }
+
+
+    </style>
+</head>
+
+<body class="w3-light-grey">
+
+    <!-- Navigation Bar -->
+    <div class="w3-bar w3-black w3-large navedit">
+        <a th:href="@{/conductor/home}" class="w3-bar-item w3-button w3-red w3-mobile"><i
+                class="fa fa-bed w3-margin-right"></i><b>Ticket
+                Bus </b>SELLER </a>
+        <div id="panel">
+            <a th:href="@{/conductor-view-all-tickets-booked}" class="w3-bar-item w3-button w3-mobile">Manage
+                tickets</a>
+            <a th:href="@{/conductor/search_bus}" class="w3-bar-item w3-button w3-mobile "
+                style="color: turquoise">Manage
+                seats</a>
+        </div>
+        <a th:href="@{/logout}" class="w3-bar-item w3-button w3-right w3-black w3-mobile">LOGOUT</a>
+    </div>
+
+    <div class="w3-content contentedit" style="max-width:1500px; height: 300px;transition: unset;">
+        <img class="w3-image imageedit" th:src="@{/img/bus33.png}" style="width: 1500px;height: 300px;">
+    </div>
+
+    <!-- Page content -->
+    <div class="w3-content contentedit" style="max-width:80%;">
+        <div class="w3-container w3-margin-top">
+            <br /><br />
+            <h3>View tickets</h3>
+            </p>
+        </div>
+
+        <div class="w3-row-padding">
+            <div class="w3-col m2">
+                <label><i class="fa fa-male"></i>START</label>
+                <br />
+                <span th:text="${currentBus.fromLoc.name}" class="w3-input w3-border"></span>
+            </div>
+
+            <div class="w3-col m2">
+                <label><i class="fa fa-child"></i>END</label>
+                <br />
+                <span th:text="${currentBus.toLoc.name}" class="w3-input w3-border"></span>
+            </div>
+
+            <div class="w3-col m2">
+                <label><i class="fa fa-child"></i>BUS ID</label>
+                <br />
+                <span class="w3-input w3-border" th:text="${currentBus.id}"></span>
+            </div>
+
+            <div class="w3-col m2">
+                <label><i class="fa fa-calendar-o"></i>DATE</label>
+                <span class="w3-input w3-border" th:text="${#dates.format(currentBus.dateRun, 'dd-MM-yyyy HH:mm')}"></span>
+        </div>
+
+        <div class="w3-col m2">
+            <label><i class="fa fa-calendar-o"></i>SEATS COUNT</label>
+            <span class="w3-input w3-border" th:text="${currentBus.seatCount}"></span>
+        </div>
+
+        <div class="w3-col m2">
+            <label><i class="fa fa-calendar-o"></i>AVAILABLE</label>
+            <span class="w3-input w3-border" th:text="${currentBus.seatContainer.availableCount}"></span>
+        </div>
+
+    </div>
+
+
+</div>
+<!--VIEW SEAT-->
+
+<div class="w3-content contentedit" style="max-width:60%;">
+    <form th:action="@{/conductor/cancel_seats}" method="get" id="cancelForm">
+        <table>
+            <tr th:each="row : ${seatsMatrix}">
+                <td th:each="seat : ${row}">
+                    <div class="w3-row-padding">
+                        <div class="w3-col m2 editdiv">
+                            <table class="edittable">
+                                <tr>
+                                    <td>
+                                        <label class="container">
+                                            <span class="checkmark"
+                                                  th:text="${seat.seatNo}"></span>
+                                        </label>
+                                        <label class="container">
+                                            <input type="checkbox" name="seatIds" th:value="${seat.id}"
+                                                   th:disabled="${!seat.booked}" class="editcheck">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <label class="container">
+                                            <span class="checkmark"
+                                                  th:text="${seat.booked ?
+                                                  seat.ticketContainer.bookingUser.id : 'Available'}"
+                                                  th:style="${seat.booked ? 'color: red' : 'color: blue'}"
+                                            ></span>
+                                        </label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <input type="hidden" name="busId" th:value="${currentBus.id}"/>
+
+    </form>
+
+    <form th:action="@{/conductor/check_out_bus}" method="get" id="finishForm">
+        <input type="hidden" name="busId" th:value="${currentBus.id}"/>
+    </form>
+
+</div>
+<div class="w3-content contentedit" style="max-width:80%;">
+    <button type="submit" form="cancelForm" class="editbut">Cancel All Selected</button>
+</div>
+
+    
+
+<!-- Footer -->
+<footer class="w3-padding-32 w3-black w3-center w3-margin-top">
+    <h5>Find Us On</h5>
+    <div class="w3-xlarge w3-padding-16">
+        <i class="fa fa-facebook-official w3-hover-opacity"></i>
+        <i class="fa fa-instagram w3-hover-opacity"></i>
+        <i class="fa fa-snapchat w3-hover-opacity"></i>
+        <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+        <i class="fa fa-twitter w3-hover-opacity"></i>
+        <i class="fa fa-linkedin w3-hover-opacity"></i>
+    </div>
+    <p>Copyright by @ 2020 <a href="https://www.w3schools.com/w3css/default.asp" target="_blank"
+                              class="w3-hover-text-green">Ticket BUS</a></p>
+</footer>
+
+
+</body>
+
+</html>
